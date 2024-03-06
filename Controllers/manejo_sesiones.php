@@ -22,18 +22,10 @@ class ManejoSesiones {
 
     public static function verificarAutenticacion($paginaInicioSesion) {
         session_start();
-        
-        // Verificar si la sesión está activa
-        if (!isset($_SESSION['usuario_id']) || $_SESSION['expire'] < time()) {
-            // Destruir la sesión y redirigir al inicio de sesión si la sesión expiró o no está activa
-            session_destroy();
-            header("Location: $paginaInicioSesion");
-            exit();
-        }
-
         // Actualizar el tiempo de expiración de la sesión
         $_SESSION['expire'] = time() + (30 * 60);
     }
+    
     public static function cerrarSesionYRedirigir($paginaInicioSesion) {
         // Inicia la sesión (asegúrate de hacerlo al principio de cada script que necesite acceder a la sesión)
         session_start();

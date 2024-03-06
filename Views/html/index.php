@@ -1,6 +1,8 @@
 <?php
-require_once '../Controllers/manejo_sesiones.php';
-ManejoSesiones::verificarAutenticacion('authentication-login.php');
+require_once '../../Controllers/manejo_sesiones.php';
+// Especifica la página de inicio de sesión si el usuario no está autenticado
+ManejoSesiones::verificarAutenticacion('autenticacion-login.php');
+$nombreUsuario = $_SESSION['nombre_usuario'];
 ?>
 
 <!DOCTYPE html>
