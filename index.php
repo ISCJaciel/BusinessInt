@@ -3,5 +3,5 @@ require_once 'Controllers/manejo_sesiones.php';
 
 ManejoSesiones::verificarAutenticacion("Views/html/autenticacion-login.php");
 
-header("Location: ../Views/html/index.php");
+header("Location: /xampp/Views/html/autenticacion-login.php");
 exit();

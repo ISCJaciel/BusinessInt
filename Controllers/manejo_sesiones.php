@@ -20,6 +20,7 @@ class ManejoSesiones {
         exit();
     }
 
+
     public static function verificarAutenticacion($paginaInicioSesion) {
         session_start();
         // Actualizar el tiempo de expiración de la sesión
