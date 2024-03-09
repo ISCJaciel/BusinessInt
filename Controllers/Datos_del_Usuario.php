@@ -64,4 +64,34 @@ class DatosUsuario {
             return null;
         }
     }
+
+    public static function registrarUsuario($usuario, $correo, $contraseña) {
+        // Conexión a la base de datos
+        $base = new Conexion();
+        $conexion = $base->obtenerConexion();
+      
+        // Preparar la consulta SQL
+        $consulta = "INSERT INTO usuario (correo, contraseña, nombre_usuario) VALUES (?, ?, ?)";
+        $sentencia = $conexion->prepare($consulta);
+      
+        // Enlazar los parámetros con los datos del formulario
+        $sentencia->bind_param('sss', $usuario, $correo, $contraseña);
+      
+        // Ejecutar la consulta
+        $resultado = $sentencia->execute();
+      
+        // Verificar si el registro fue exitoso
+        if ($resultado) {
+          // Cerrar la conexión y retornar true
+          $sentencia->close();
+          $base->cerrarConexion();
+          return true;
+        } else {
+          // Cerrar la conexión y retornar false
+          $sentencia->close();
+          $base->cerrarConexion();
+          return false;
+        }
+      }
+
 }

@@ -19,7 +19,6 @@ class Conexion {
             die("Error de conexión: " . $this->conexion->connect_error);
         }
         
-        echo "Conexión exitosa"; // Esto es opcional, solo para verificar que la conexión se realizó con éxito
     }
 
     // Método para obtener la conexión a la base de datos

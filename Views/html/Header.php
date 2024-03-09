@@ -8,7 +8,7 @@ echo '
 <meta name="description" content="">
 <meta name="author" content="">
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon_pagina.png">
 <title>Freedash Template - The Ultimate Multipurpose admin template</title>
 <!-- Custom CSS -->
 <link href="../dist/css/style.min.css" rel="stylesheet">
