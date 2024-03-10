@@ -60,8 +60,46 @@ include "Header.php";
         </div>
     </div>
 
+    <!-- Modal para datos faltantes -->
+    <div class="modal fade" id="modalDatosFaltantes" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                </div>
+                <div class="modal-body bg-white">
+                    Por favor, ingresa tu usuario y contraseña.
+                </div>
+                <div class="modal-footer bg-white">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para credenciales incorrectas -->
+    <div class="modal fade" id="modalCredencialesIncorrectas" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                </div>
+                <div class="modal-body bg-white">
+                    Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.
+                </div>
+                <div class="modal-footer bg-white">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <?php
     // Verificar si la variable de sesión está configurada y mostrar la modal
+    
     if (isset($_SESSION['registro_exitoso']) && $_SESSION['registro_exitoso']) {
         echo '
         <script>
@@ -71,6 +109,26 @@ include "Header.php";
         </script>';
         // Reiniciar la variable de sesión para evitar que la modal se muestre en futuras visitas
         $_SESSION['registro_exitoso'] = false;
+    }
+
+    // Verificar si hay alerta de datos faltantes y mostrar el modal correspondiente
+    if (isset($_GET['alert']) && $_GET['alert'] === 'datos_faltantes') {
+        echo '
+        <script>
+            $(document).ready(function () {
+                $("#modalDatosFaltantes").modal("show");
+            });
+        </script>';
+    }
+
+    // Verificar si hay alerta de credenciales incorrectas y mostrar el modal correspondiente
+    if (isset($_GET['alert']) && $_GET['alert'] === 'credenciales_incorrectas') {
+        echo '
+        <script>
+            $(document).ready(function () {
+                $("#modalCredencialesIncorrectas").modal("show");
+            });
+        </script>';
     }
     ?>
 

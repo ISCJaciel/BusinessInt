@@ -5,21 +5,24 @@ class DatosUsuario {
     public static function verificardatos($usuario, $contraseña) {
         $base = new Conexion;
         $conexion = $base->obtenerConexion();
-
+    
         $consulta = "SELECT * FROM usuario WHERE nombre_usuario = ?";
         $sentencia = $conexion->prepare($consulta);
-
+    
         $sentencia->bind_param('s', $usuario);
-
+    
         $sentencia->execute();
-
+    
         $resultado = $sentencia->get_result();
-
+    
         if ($resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
-
-            // Verificar la contraseña (sin hash)
-            if ($contraseña === $usuario['contraseña']) {
+    
+            // Obtener el hash MD5 almacenado en la base de datos
+            $hashAlmacenado = $usuario['contraseña'];
+    
+            // Verificar la contraseña decodificando el hash MD5 y comparándolo con la contraseña proporcionada
+            if (md5($contraseña) === $hashAlmacenado) {
                 // Contraseña válida
                 $sentencia->close();
                 $base->cerrarConexion();
@@ -37,6 +40,7 @@ class DatosUsuario {
             return false;
         }
     }
+    
 
     public static function obtenerInformacionUsuario($nombreusuario) {
         $db = new Conexion();
@@ -64,34 +68,5 @@ class DatosUsuario {
             return null;
         }
     }
-
-    public static function registrarUsuario($usuario, $correo, $contraseña) {
-        // Conexión a la base de datos
-        $base = new Conexion();
-        $conexion = $base->obtenerConexion();
-      
-        // Preparar la consulta SQL
-        $consulta = "INSERT INTO usuario (correo, contraseña, nombre_usuario) VALUES (?, ?, ?)";
-        $sentencia = $conexion->prepare($consulta);
-      
-        // Enlazar los parámetros con los datos del formulario
-        $sentencia->bind_param('sss', $usuario, $correo, $contraseña);
-      
-        // Ejecutar la consulta
-        $resultado = $sentencia->execute();
-      
-        // Verificar si el registro fue exitoso
-        if ($resultado) {
-          // Cerrar la conexión y retornar true
-          $sentencia->close();
-          $base->cerrarConexion();
-          return true;
-        } else {
-          // Cerrar la conexión y retornar false
-          $sentencia->close();
-          $base->cerrarConexion();
-          return false;
-        }
-      }
 
 }
